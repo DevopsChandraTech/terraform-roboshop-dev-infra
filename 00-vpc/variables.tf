@@ -25,9 +25,9 @@ variable "private_cidr" {
     default = ["10.0.11.0/24","10.0.12.0/24"]
 }
 
-variable "az" {
-    default = ["us-east-1a","us-east-1b"]
-}
+# variable "az" {
+#     default = ["us-east-1a","us-east-1b"]
+# }
 
 variable "database_cidr" {
     default = ["10.0.21.0/24","10.0.22.0/24"]
