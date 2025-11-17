@@ -1,5 +1,5 @@
 module "vpc" {
-  source = "https://github.com/DevopsChandraTech/terraform-roboshop-dev-infra.git?ref=main" # it will take ref
+  source = "https://github.com/DevopsChandraTech/terraform-roboshop-vpc.git?ref=main" # it will take ref
   #ref = main take main branch or ref = dev take dev branch the code goes to git hub branch for global access
   cidr_block = var.cidr_block
   project_name = var.project_name
