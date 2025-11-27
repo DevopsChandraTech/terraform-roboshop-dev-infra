@@ -19,5 +19,10 @@ data "aws_ami" "ami_id" {
 }
 
 data "aws_ssm_parameter" "bastion_sg_id" {
-  name = "/${var.project_name}/${var.environment}/bastion_sg_id"
+  name = "/${var.project_name}/${var.environment}/bastion_sg_id" # Replace with the actual name of your SSM parameter
 }
+
+data "aws_ssm_parameter" "public_subnet_ids" {
+  name = "/${var.project_name}/${var.environment}/public_subnet_ids" # Replace with the actual name of your SSM parameter
+}
+

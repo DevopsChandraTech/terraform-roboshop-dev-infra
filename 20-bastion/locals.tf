@@ -1,13 +1,11 @@
 locals {
     ami_id = data.aws_ami.ami_id.id
     bastion_sg_id = data.aws_ssm_parameter.bastion_sg_id.value
-}
-
-locals {
-    common_name = "${var.project_name}-${var.environment}"
+    public_subnet_id = split("," , data.aws_ssm_parameter.public_subnet_ids.value)[0] #["10.0.1.0/24","10.0.2.0/24"] its comes with list we split that list
+    common_name_suffix = "${var.project_name}-${var.environment}" #roboshop-dev
     common_tags = {
         Project = "roboshop"
+        Environment = "dev"
         Terraform = "true"
     }
-    common_name_suffix = "${local.common_name}-bastion"
 }
