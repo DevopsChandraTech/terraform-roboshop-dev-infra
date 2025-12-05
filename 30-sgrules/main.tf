@@ -24,3 +24,21 @@ resource "aws_security_group_rule" "bastion-mongodb" {
   protocol       = "tcp"
   to_port           = 22
 }
+
+resource "aws_security_group_rule" "bastion-redis" {
+  type              = "ingress"
+  security_group_id = local.redis_sg_id #redis traffice receives from bastion
+  source_security_group_id = local.bastion_sg_id #bastion host traffice sends to mongodb
+  from_port         = 22
+  protocol       = "tcp"
+  to_port           = 22
+}
+
+resource "aws_security_group_rule" "bastion-rabbitmq" {
+  type              = "ingress"
+  security_group_id = local.rabbitmq_sg_id #redis traffice receives from bastion
+  source_security_group_id = local.bastion_sg_id #bastion host traffice sends to mongodb
+  from_port         = 22
+  protocol       = "tcp"
+  to_port           = 22
+}
