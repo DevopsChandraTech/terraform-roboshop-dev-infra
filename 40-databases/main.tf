@@ -39,79 +39,79 @@ resource "terraform_data" "mongodb" { #if instance id replaced it can be trigger
 }
 
 #redis:
-resource "aws_instance" "redis" {
-  ami           = local.ami_id
-  instance_type = "t3.micro"
-  vpc_security_group_ids = [local.redis_sg_id]
-  subnet_id = local.private_subnet_id
-  tags = merge(
-    local.common_tags,
-    {
-      Name = "${local.common_name_suffix}-redis" #roboshop-dev-mongodb
-    }
-  )
-}
-#null resource will not create any resource.but it is used to configure the instance using provisioner. it follows terraform lifecycle.
-#null resource is deprecated and now it is used as terraform data
+# resource "aws_instance" "redis" {
+#   ami           = local.ami_id
+#   instance_type = "t3.micro"
+#   vpc_security_group_ids = [local.redis_sg_id]
+#   subnet_id = local.private_subnet_id
+#   tags = merge(
+#     local.common_tags,
+#     {
+#       Name = "${local.common_name_suffix}-redis" #roboshop-dev-mongodb
+#     }
+#   )
+# }
+# #null resource will not create any resource.but it is used to configure the instance using provisioner. it follows terraform lifecycle.
+# #null resource is deprecated and now it is used as terraform data
 
-resource "terraform_data" "redis" { #if instance id replaced it can be triggered
-  triggers_replace = aws_instance.redis.id
+# resource "terraform_data" "redis" { #if instance id replaced it can be triggered
+#   triggers_replace = aws_instance.redis.id
 
-  connection {
-    type        = "ssh"
-    user        = "ec2-user"
-    password    = "DevOps321"
-    host        = aws_instance.redis.private_ip
-  }
+#   connection {
+#     type        = "ssh"
+#     user        = "ec2-user"
+#     password    = "DevOps321"
+#     host        = aws_instance.redis.private_ip
+#   }
 
-  provisioner "file" {
-    source = "bootstrap.sh"
-    destination = "/tmp/bootstrap.sh"
-  }
+#   provisioner "file" {
+#     source = "bootstrap.sh"
+#     destination = "/tmp/bootstrap.sh"
+#   }
 
-  provisioner "remote-exec" {
-    inline = [
-      "chmod +x /tmp/bootstrap.sh",
-      "sudo sh /tmp/bootstrap.sh redis"
-    ]
-  }
-}
+#   provisioner "remote-exec" {
+#     inline = [
+#       "chmod +x /tmp/bootstrap.sh",
+#       "sudo sh /tmp/bootstrap.sh redis"
+#     ]
+#   }
+# }
 
-#rabbitmq:
-resource "aws_instance" "rabbitmq" {
-  ami           = local.ami_id
-  instance_type = "t3.micro"
-  vpc_security_group_ids = [local.rabbitmq_sg_id]
-  subnet_id = local.private_subnet_id
-  tags = merge(
-    local.common_tags,
-    {
-      Name = "${local.common_name_suffix}-rabbitmq" #roboshop-dev-mongodb
-    }
-  )
-}
-#null resource will not create any resource.but it is used to configure the instance using provisioner. it follows terraform lifecycle.
-#null resource is deprecated and now it is used as terraform data
+# #rabbitmq:
+# resource "aws_instance" "rabbitmq" {
+#   ami           = local.ami_id
+#   instance_type = "t3.micro"
+#   vpc_security_group_ids = [local.rabbitmq_sg_id]
+#   subnet_id = local.private_subnet_id
+#   tags = merge(
+#     local.common_tags,
+#     {
+#       Name = "${local.common_name_suffix}-rabbitmq" #roboshop-dev-mongodb
+#     }
+#   )
+# }
+# #null resource will not create any resource.but it is used to configure the instance using provisioner. it follows terraform lifecycle.
+# #null resource is deprecated and now it is used as terraform data
 
-resource "terraform_data" "rabbitmq" { #if instance id replaced it can be triggered
-  triggers_replace = aws_instance.rabbitmq.id
+# resource "terraform_data" "rabbitmq" { #if instance id replaced it can be triggered
+#   triggers_replace = aws_instance.rabbitmq.id
 
-  connection {
-    type        = "ssh"
-    user        = "ec2-user"
-    password    = "DevOps321"
-    host        = aws_instance.rabbitmq.private_ip
-  }
+#   connection {
+#     type        = "ssh"
+#     user        = "ec2-user"
+#     password    = "DevOps321"
+#     host        = aws_instance.rabbitmq.private_ip
+#   }
 
-  provisioner "file" {
-    source = "bootstrap.sh"
-    destination = "/tmp/bootstrap.sh"
-  }
+#   provisioner "file" {
+#     source = "bootstrap.sh"
+#     destination = "/tmp/bootstrap.sh"
+#   }
 
-  provisioner "remote-exec" {
-    inline = [
-      "chmod +x /tmp/bootstrap.sh",
-      "sudo sh /tmp/bootstrap.sh rabbitmq"
-    ]
-  }
-}
+#   provisioner "remote-exec" {
+#     inline = [
+#       "chmod +x /tmp/bootstrap.sh",
+#       "sudo sh /tmp/bootstrap.sh rabbitmq"
+#     ]
+#   }
+# }
