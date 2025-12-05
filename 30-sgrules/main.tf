@@ -1,0 +1,26 @@
+resource "aws_security_group_rule" "bastion-backend-alb" {
+  type              = "ingress"
+  security_group_id = local.backend_alb_sg_id #backend alb traffice receives from bastion
+  source_security_group_id  = local.bastion_sg_id #bastion host send traffice to backend alb
+  from_port         = 80
+  protocol       = "tcp"
+  to_port           = 80
+}
+
+resource "aws_security_group_rule" "laptop-bastion" {
+  type              = "ingress"
+  security_group_id = local.bastion_sg_id #backend alb traffice receives from bastion
+  cidr_blocks      = ["0.0.0.0/0"] #laptop send traffice to bastion host
+  from_port         = 22
+  protocol       = "tcp"
+  to_port           = 22
+}
+
+resource "aws_security_group_rule" "bastion-mongodb" {
+  type              = "ingress"
+  security_group_id = local.mongodb_sg_id #mongodb traffice receives from bastion
+  source_security_group_id = local.bastion_sg_id #bastion host traffice sends to mongodb
+  from_port         = 22
+  protocol       = "tcp"
+  to_port           = 22
+}
