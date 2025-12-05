@@ -1,4 +1,4 @@
-resource "aws_instance" "database" {
+resource "aws_instance" "mongodb" {
   ami           = local.ami_id
   instance_type = "t3.micro"
   vpc_security_group_ids = [local.mongodb_sg_id]
@@ -14,13 +14,13 @@ resource "aws_instance" "database" {
 #null resource is deprecated and now it is used as terraform data
 
 resource "terraform_data" "mongodb" { #if instance id replaced it can be triggered
-  triggers_replace = aws_instance.database.id
+  triggers_replace = aws_instance.mongodb.id
 
   connection {
     type        = "ssh"
     user        = "ec2-user"
     password    = "DevOps321"
-    host        = aws_instance.database.private_ip
+    host        = aws_instance.mongodb.private_ip
   }
 
   provisioner "file" {
