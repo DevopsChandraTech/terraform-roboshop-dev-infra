@@ -23,9 +23,15 @@ resource "terraform_data" "mongodb" { #if instance id replaced it can be trigger
     host        = aws_instance.database.private_ip
   }
 
+  provisioner "file" {
+    source = "bootstrap.sh"
+    destination = "/tmp/bootstrap.sh"
+  }
+
   provisioner "remote-exec" {
     inline = [
-      "echo Hello World"
+      "sudo chmod +x /tmp/bootstrap.sh",
+      "sudo sh /tmp/bootstrap.sh"
     ]
   }
 }
