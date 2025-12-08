@@ -15,7 +15,10 @@ resource "aws_instance" "mongodb" {
 #null resource is deprecated and now it is used as terraform data
 
 resource "terraform_data" "mongodb" { #if instance id replaced it can be triggered
-  triggers_replace = aws_instance.mongodb.id
+    triggers_replace =  [
+      aws_instance.redis.id
+  ] 
+
 
   connection {
     type        = "ssh"
@@ -55,7 +58,9 @@ resource "aws_instance" "redis" {
 #null resource is deprecated and now it is used as terraform data
 
 resource "terraform_data" "redis" { #if instance id replaced it can be triggered
-  triggers_replace = aws_instance.redis.id
+  triggers_replace =  [
+    aws_instance.redis.id
+  ] 
 
   connection {
     type        = "ssh"
@@ -94,7 +99,10 @@ resource "aws_instance" "rabbitmq" {
 #null resource is deprecated and now it is used as terraform data
 
 resource "terraform_data" "rabbitmq" { #if instance id replaced it can be triggered
-  triggers_replace = aws_instance.rabbitmq.id
+    triggers_replace =  [
+      aws_instance.redis.id
+  ] 
+
 
   connection {
     type        = "ssh"
@@ -116,7 +124,7 @@ resource "terraform_data" "rabbitmq" { #if instance id replaced it can be trigge
   }
 }
 
-#mysql:
+/* #mysql:
 resource "aws_instance" "mysql" {
   ami           = local.ami_id
   instance_type = "t3.micro"
@@ -139,7 +147,10 @@ resource "aws_iam_instance_profile" "mysql" {
 #null resource is deprecated and now it is used as terraform data
 
 resource "terraform_data" "mysql" { #if instance id replaced it can be triggered
-  triggers_replace = aws_instance.mysql.id
+    triggers_replace =  [
+      aws_instance.redis.id
+  ] 
+
 
   connection {
     type        = "ssh"
@@ -159,4 +170,4 @@ resource "terraform_data" "mysql" { #if instance id replaced it can be triggered
       "sudo sh /tmp/bootstrap.sh mysql dev"
     ]
   }
-}
+} */
