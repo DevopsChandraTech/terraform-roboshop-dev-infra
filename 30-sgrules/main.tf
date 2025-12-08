@@ -45,7 +45,7 @@ resource "aws_security_group_rule" "bastion-rabbitmq" {
 
 resource "aws_security_group_rule" "bastion-mysql" {
   type              = "ingress"
-  security_group_id = local.rabbitmq_sg_id #redis traffice receives from bastion
+  security_group_id = local.mysql_sg_id #redis traffice receives from bastion
   source_security_group_id = local.bastion_sg_id #bastion host traffice sends to mongodb
   from_port         = 22
   protocol       = "tcp"
