@@ -124,7 +124,7 @@ resource "terraform_data" "rabbitmq" { #if instance id replaced it can be trigge
   }
 }
 
-/* #mysql:
+#mysql:
 resource "aws_instance" "mysql" {
   ami           = local.ami_id
   instance_type = "t3.micro"
@@ -170,4 +170,4 @@ resource "terraform_data" "mysql" { #if instance id replaced it can be triggered
       "sudo sh /tmp/bootstrap.sh mysql dev"
     ]
   }
-} */
+}
