@@ -33,7 +33,7 @@ resource "terraform_data" "mongodb" { #if instance id replaced it can be trigger
     inline = [
       "chmod +x /tmp/bootstrap.sh",
       #"sudo sh /tmp/bootstrap.sh"
-      "sudo sh /tmp/bootstrap.sh mongodb dev"
+      "sudo sh /tmp/bootstrap.sh mongodb"
     ]
   }
 }
@@ -72,7 +72,7 @@ resource "terraform_data" "redis" { #if instance id replaced it can be triggered
   provisioner "remote-exec" {
     inline = [
       "chmod +x /tmp/bootstrap.sh",
-      "sudo sh /tmp/bootstrap.sh redis dev"
+      "sudo sh /tmp/bootstrap.sh redis"
     ]
   }
 }
@@ -111,7 +111,7 @@ resource "terraform_data" "rabbitmq" { #if instance id replaced it can be trigge
   provisioner "remote-exec" {
     inline = [
       "chmod +x /tmp/bootstrap.sh",
-      "sudo sh /tmp/bootstrap.sh rabbitmq dev"
+      "sudo sh /tmp/bootstrap.sh rabbitmq"
     ]
   }
 }
