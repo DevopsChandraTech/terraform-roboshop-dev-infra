@@ -4,7 +4,7 @@ locals {
     redis_sg_id = data.aws_ssm_parameter.redis_sg_id.value
     rabbitmq_sg_id = data.aws_ssm_parameter.rabbitmq_sg_id.value
     mysql_sg_id = data.aws_ssm_parameter.mysql_sg_id.value
-    private_subnet_id = split("," , data.aws_ssm_parameter.private_subnet_ids.value)[0]
+    database_subnet_id = split("," , data.aws_ssm_parameter.database_subnet_ids.value)[0]
     common_name_suffix = "${var.project_name}-${var.environment}"
     common_tags = {
         Project = "roboshop"

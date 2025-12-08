@@ -39,5 +39,9 @@ data "aws_ssm_parameter" "private_subnet_ids" {
   name = "/${var.project_name}/${var.environment}/private_subnet_ids" # Replace with the actual name of your SSM parameter
 }
 
+data "aws_ssm_parameter" "database_subnet_ids" {
+  name = "/${var.project_name}/${var.environment}/database_subnet_ids" # Replace with the actual name of your SSM parameter
+}
+
 
 

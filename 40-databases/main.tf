@@ -3,7 +3,7 @@ resource "aws_instance" "mongodb" {
   ami           = local.ami_id
   instance_type = "t3.micro"
   vpc_security_group_ids = [local.mongodb_sg_id]
-  subnet_id = local.private_subnet_id
+  subnet_id = local.database_subnet_id
   tags = merge(
     local.common_tags,
     {
@@ -46,7 +46,7 @@ resource "aws_instance" "redis" {
   ami           = local.ami_id
   instance_type = "t3.micro"
   vpc_security_group_ids = [local.redis_sg_id]
-  subnet_id = local.private_subnet_id
+  subnet_id = local.database_subnet_id
   tags = merge(
     local.common_tags,
     {
@@ -87,7 +87,7 @@ resource "aws_instance" "rabbitmq" {
   ami           = local.ami_id
   instance_type = "t3.micro"
   vpc_security_group_ids = [local.rabbitmq_sg_id]
-  subnet_id = local.private_subnet_id
+  subnet_id = local.database_subnet_id
   tags = merge(
     local.common_tags,
     {
@@ -129,7 +129,7 @@ resource "aws_instance" "mysql" {
   ami           = local.ami_id
   instance_type = "t3.micro"
   vpc_security_group_ids = [local.mysql_sg_id]
-  subnet_id = local.private_subnet_id
+  subnet_id = local.database_subnet_id
   iam_instance_profile = aws_iam_instance_profile.mysql.name
   tags = merge(
     local.common_tags,
