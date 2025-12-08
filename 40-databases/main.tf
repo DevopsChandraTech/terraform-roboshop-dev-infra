@@ -99,7 +99,7 @@ resource "aws_instance" "rabbitmq" {
 #null resource is deprecated and now it is used as terraform data
 
 resource "terraform_data" "rabbitmq" { #if instance id replaced it can be triggered
-    triggers_replace =  [
+  triggers_replace =  [
       aws_instance.redis.id
   ] 
 
@@ -147,8 +147,8 @@ resource "aws_iam_instance_profile" "mysql" {
 #null resource is deprecated and now it is used as terraform data
 
 resource "terraform_data" "mysql" { #if instance id replaced it can be triggered
-    triggers_replace =  [
-      aws_instance.redis.id
+  triggers_replace =  [
+      aws_instance.mysql.id
   ] 
 
 
