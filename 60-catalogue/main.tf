@@ -6,7 +6,7 @@ resource "aws_instance" "catalogue" {
   tags = merge(
     local.common_tags,
     {
-      Name = "${local.common_name_suffix}-mongodb" #roboshop-dev-mongodb
+      Name = "${local.common_name_suffix}-catalogue" #roboshop-dev-mongodb
     }
   )
 }
