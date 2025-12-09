@@ -171,3 +171,11 @@ resource "terraform_data" "mysql" { #if instance id replaced it can be triggered
     ]
   }
 }
+
+resource "aws_route53_record" "www" {
+  zone_id = aws_route53_zone.mongodb.zone_id
+  name    = "www.example.com"
+  type    = "A"
+  ttl     = 300
+  records = [aws_eip.lb.public_ip]
+}
