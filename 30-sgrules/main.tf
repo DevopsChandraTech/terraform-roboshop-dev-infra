@@ -52,7 +52,7 @@ resource "aws_security_group_rule" "bastion-mysql" {
   to_port           = 22
 }
 
-resource "aws_security_group_rule" "laptop-catalogue" {
+resource "aws_security_group_rule" "bastion-catalogue" {
   type              = "ingress"
   security_group_id = local.catalogue_sg_id #mongodb traffice receives from bastion
   source_security_group_id = local.bastion_sg_id #bastion host traffice sends to mongodb
@@ -60,3 +60,4 @@ resource "aws_security_group_rule" "laptop-catalogue" {
   protocol       = "tcp"
   to_port           = 22
 }
+
