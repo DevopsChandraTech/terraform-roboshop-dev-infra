@@ -172,10 +172,11 @@ resource "terraform_data" "mysql" { #if instance id replaced it can be triggered
   }
 }
 
-resource "aws_route53_record" "www" {
-  zone_id = aws_route53_zone.mongodb.zone_id
-  name    = "www.example.com"
+resource "aws_route53_record" "mongodb" {
+  zone_id = var.zone_id
+  name    = "mongodb-${var.environment}.${var.domain_name}" #mongodb-dev.devaws.shop
   type    = "A"
-  ttl     = 300
-  records = [aws_eip.lb.public_ip]
+  ttl     = 1
+  records = [aws_instance.mongodb.private.ip]
+  allow_overwrite = true
 }
