@@ -33,7 +33,7 @@ resource "terraform_data" "catalogue" { #if instance id replaced it can be trigg
     inline = [
       "chmod +x /tmp/catalogue.sh",
       #"sudo sh /tmp/bootstrap.sh"
-      "sudo sh /tmp/catalogue.sh catalogue"
+      "sudo sh /tmp/catalogue.sh catalogue ${var.environment}"
     ]
   }
 }
