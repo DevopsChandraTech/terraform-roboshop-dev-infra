@@ -25,15 +25,15 @@ resource "terraform_data" "catalogue" { #if instance id replaced it can be trigg
   }
 
   provisioner "file" {
-    source = "bootstrap.sh"
-    destination = "/tmp/bootstrap.sh"
+    source = "catalogue.sh"
+    destination = "/tmp/catalogue.sh"
   }
 
   provisioner "remote-exec" {
     inline = [
-      "chmod +x /tmp/bootstrap.sh",
+      "chmod +x /tmp/catalogue.sh",
       #"sudo sh /tmp/bootstrap.sh"
-      "sudo sh /tmp/bootstrap.sh catalogue"
+      "sudo sh /tmp/catalogue.sh catalogue"
     ]
   }
 }
