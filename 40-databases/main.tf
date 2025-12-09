@@ -177,6 +177,6 @@ resource "aws_route53_record" "mongodb" {
   name    = "mongodb-${var.environment}.${var.domain_name}" #mongodb-dev.devaws.shop
   type    = "A"
   ttl     = 1
-  records = [aws_instance.mongodb.private.ip]
+  records = [aws_instance.mongodb.private_ip]
   allow_overwrite = true
 }
