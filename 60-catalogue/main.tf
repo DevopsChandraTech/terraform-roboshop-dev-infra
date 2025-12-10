@@ -110,8 +110,8 @@ resource "aws_autoscaling_group" "catalogue" {
   desired_capacity          = 1
   force_delete              = false
   launch_template {
-    id = aws_ami_from_instance.catalogue.id
-    name = "${local.common_name_suffix}-catalogue"
+    id = aws_launch_template.catalogue.id
+    version = aws_launch_template.catalogue.latest_version
   }
   vpc_zone_identifier       = [local.private_subnet_ids]
   target_group_arns = [aws_lb_target_group.catalogue.arn]
