@@ -16,7 +16,7 @@ resource "aws_instance" "mongodb" {
 
 resource "terraform_data" "mongodb" { #if instance id replaced it can be triggered
     triggers_replace =  [
-      aws_instance.redis.id
+      aws_instance.mongodb.id
   ] 
 
 
