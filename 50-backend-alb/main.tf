@@ -31,3 +31,15 @@ resource "aws_lb_listener" "front_end" {
     }
   }
 }
+
+resource "aws_route53_record" "backend_alb" {
+  zone_id = var.zone_id
+  name    = "*.backend_alb.${var.environment}.${var.domain_name}"#*.backend_alb.dev.devaws.shop
+  type    = "A"
+  #these are load balancer details not in our domain details
+  alias {
+    name                   = aws_lb.backend_alb.dns_name
+    zone_id                = aws_lb.backend_alb.zone_id
+    evaluate_target_health = true
+  }
+}
