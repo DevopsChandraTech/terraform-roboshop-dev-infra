@@ -31,5 +31,5 @@ data "aws_ssm_parameter" "private_subnet_ids" {
 }
 
 data "aws_ssm_parameter" "backend_alb_listener_arn" {
-  name = "/${var.project_name}/${var.environment}/backend_alb_listener_arn" # Replace with the actual name of your SSM parameter
+  name = "/${var.project_name}/${var.environment}/backend_alb_listener_arn"
 }
