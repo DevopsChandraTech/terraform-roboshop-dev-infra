@@ -80,6 +80,12 @@ resource "aws_launch_template" "catalogue" {
   image_id = aws_ami_from_instance.catalogue.id
   instance_initiated_shutdown_behavior = "terminate"
   instance_type = "t3.micro"
+
+  vpc_security_group_ids = [local.catalogue_sg_id]
+  # when we run terraform apply again, a new version will be created with new AMI ID
+  update_default_version = true
+
+  # tags attached to the instance
   tag_specifications {
     resource_type = "instance"
     tags = merge(
@@ -89,7 +95,7 @@ resource "aws_launch_template" "catalogue" {
       }
     )
   }
-
+  # tags attached to the volume created by instance
   tag_specifications {
     resource_type = "volume"
     tags = merge(
@@ -99,7 +105,15 @@ resource "aws_launch_template" "catalogue" {
       }
     )
   }
+    # tags attached to the launch template
+  tags = merge(
+      local.common_tags,
+      {
+        Name = "${local.common_name_suffix}-catalogue"
+      }
+  )
 }
+
 
 resource "aws_autoscaling_group" "catalogue" {
   name                      = "${local.common_name_suffix}-catalogue"
