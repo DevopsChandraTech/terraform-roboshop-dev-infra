@@ -19,7 +19,7 @@ data "aws_ami" "ami_id" {
 }
 
 data "aws_ssm_parameter" "vpc_id" {
-  name = "/${var.project_name}/${var.environment}/vpc_id" # Replace with the actual name of your SSM parameter
+  name = "/${var.project_name}/${var.environment}/vpc_id"
 }
 
 data "aws_ssm_parameter" "catalogue_sg_id" {

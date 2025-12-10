@@ -59,9 +59,9 @@ resource "aws_lb_target_group" "catalogue" {
   name     = "${local.common_name_suffix}-catalogue"
   port     = 8080
   protocol = "HTTP"
-  vpc_id   = data.aws_ssm_parameter.vpc_id.value
+  vpc_id   = local.vpc_id
   deregistration_delay = 60 # waiting for instance deletion then instance deleted
-  
+
   health_check {
     enabled   = true
     healthy_threshold = 2
