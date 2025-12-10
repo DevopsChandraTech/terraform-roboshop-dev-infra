@@ -113,7 +113,7 @@ resource "aws_autoscaling_group" "catalogue" {
     id = aws_ami_from_instance.catalogue.id
     name = "${local.common_name_suffix}-catalogue"
   }
-  vpc_zone_identifier       = local.private_subnet_ids
+  vpc_zone_identifier       = [local.private_subnet_ids]
   target_group_arns = [aws_lb_target_group.catalogue.arn]
 
   dynamic "tag" {
