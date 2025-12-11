@@ -80,3 +80,12 @@ resource "aws_security_group_rule" "backend_alb-catalogue" {
   to_port           = 8080
 }
 
+resource "aws_security_group_rule" "internet_frontend_alb" {
+  type              = "ingress"
+  security_group_id = local.frontend_alb_sg_id #backend alb traffice receives from bastion
+  cidr_blocks      = ["0.0.0.0/0"] #laptop send traffice to bastion host
+  from_port         = 22
+  protocol       = "tcp"
+  to_port           = 22
+}
+
