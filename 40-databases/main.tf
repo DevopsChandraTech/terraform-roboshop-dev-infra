@@ -100,7 +100,7 @@ resource "aws_instance" "rabbitmq" {
 
 resource "terraform_data" "rabbitmq" { #if instance id replaced it can be triggered
   triggers_replace =  [
-      aws_instance.redis.id
+      aws_instance.rabbitmq.id
   ] 
 
 
