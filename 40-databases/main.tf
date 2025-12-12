@@ -41,7 +41,7 @@ resource "terraform_data" "mongodb" { #if instance id replaced it can be trigger
   }
 }
 
-/* #redis:
+#redis:
 resource "aws_instance" "redis" {
   ami           = local.ami_id
   instance_type = "t3.micro"
@@ -170,7 +170,7 @@ resource "terraform_data" "mysql" { #if instance id replaced it can be triggered
       "sudo sh /tmp/bootstrap.sh mysql dev"
     ]
   }
-} */
+}
 
 resource "aws_route53_record" "mongodb" {
   zone_id = var.zone_id
@@ -181,7 +181,7 @@ resource "aws_route53_record" "mongodb" {
   allow_overwrite = true
 }
 
-/* resource "aws_route53_record" "mysql" {
+resource "aws_route53_record" "mysql" {
   zone_id = var.zone_id
   name    = "mysql-${var.environment}.${var.domain_name}" #mysql-dev.devaws.shop
   type    = "A"
@@ -206,4 +206,4 @@ resource "aws_route53_record" "redis" {
   ttl     = 1
   records = [aws_instance.redis.private_ip]
   allow_overwrite = true
-} */
+}
