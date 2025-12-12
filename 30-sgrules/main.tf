@@ -1,3 +1,4 @@
+#bastion host sent traffic from databases and applications
 resource "aws_security_group_rule" "backend-alb-bastion" {
   type              = "ingress"
   security_group_id = local.backend_alb_sg_id #backend alb traffice receives from bastion
@@ -98,7 +99,7 @@ resource "aws_security_group_rule" "payment-bastion" {
 }
 
 
-
+#mongodb accepting connections from catalogue and redis
 resource "aws_security_group_rule" "mongodb-catalogue" {
   type              = "ingress"
   security_group_id = local.mongodb_sg_id #mongodb traffice receives from bastion
@@ -117,6 +118,7 @@ resource "aws_security_group_rule" "redis-catalogue" {
   to_port           = 6379
 }
 
+#redis accepting connections from user and cart
 resource "aws_security_group_rule" "redis-user" {
   type              = "ingress"
   security_group_id = local.redis_sg_id #mongodb traffice receives from bastion
@@ -135,6 +137,7 @@ resource "aws_security_group_rule" "redis-cart" {
   to_port           = 6379
 }
 
+#mysql accepting connections from shipping
 resource "aws_security_group_rule" "mysql-shipping" {
   type              = "ingress"
   security_group_id = local.mysql_sg_id #mongodb traffice receives from bastion
@@ -144,6 +147,7 @@ resource "aws_security_group_rule" "mysql-shipping" {
   to_port           = 3306
 }
 
+#rabbitmq accepting connections from payment
 resource "aws_security_group_rule" "rabbitmq-payment" {
   type              = "ingress"
   security_group_id = local.rabbitmq_sg_id #mongodb traffice receives from bastion
@@ -153,6 +157,7 @@ resource "aws_security_group_rule" "rabbitmq-payment" {
   to_port           = 5672
 }
 
+#catalogue,user,cart,shipping,payment accepting connections from backend_alb
 resource "aws_security_group_rule" "catalogue-backend_alb" {
   type              = "ingress"
   security_group_id = local.catalogue_sg_id #mongodb traffice receives from bastion
@@ -198,36 +203,27 @@ resource "aws_security_group_rule" "payment-backend_alb" {
   to_port           = 8080
 }
 
-resource "aws_security_group_rule" "catalogue-cart" {
+resource "aws_security_group_rule" "backend_alb-cart" {
   type              = "ingress"
-  security_group_id = local.catalogue_sg_id #mongodb traffice receives from bastion
+  security_group_id = local.backend_alb_sg_id #mongodb traffice receives from bastion
   source_security_group_id = local.cart_sg_id #bastion host traffice sends to mongodb
   from_port         = 8080
   protocol       = "tcp"
   to_port           = 8080
 }
 
-resource "aws_security_group_rule" "shipping-cart" {
+resource "aws_security_group_rule" "backend_alb-shipping" {
   type              = "ingress"
-  security_group_id = local.cart_sg_id #mongodb traffice receives from bastion
+  security_group_id = local.backend_alb_sg_id #mongodb traffice receives from bastion
   source_security_group_id = local.shipping_sg_id #bastion host traffice sends to mongodb
   from_port         = 8080
   protocol       = "tcp"
   to_port           = 8080
 }
 
-resource "aws_security_group_rule" "payment-cart" {
+resource "aws_security_group_rule" "backend_alb-payment" {
   type              = "ingress"
-  security_group_id = local.cart_sg_id #mongodb traffice receives from bastion
-  source_security_group_id = local.payment_sg_id #bastion host traffice sends to mongodb
-  from_port         = 8080
-  protocol       = "tcp"
-  to_port           = 8080
-}
-
-resource "aws_security_group_rule" "payment-user" {
-  type              = "ingress"
-  security_group_id = local.user_sg_id #mongodb traffice receives from bastion
+  security_group_id = local.backend_alb_sg_id #mongodb traffice receives from bastion
   source_security_group_id = local.payment_sg_id #bastion host traffice sends to mongodb
   from_port         = 8080
   protocol       = "tcp"
@@ -261,4 +257,6 @@ resource "aws_security_group_rule" "frontend_alb-public" {
   protocol       = "tcp"
   to_port           = 443
 }
+
+
 
