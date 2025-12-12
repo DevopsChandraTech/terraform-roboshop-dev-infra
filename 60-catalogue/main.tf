@@ -115,7 +115,10 @@ resource "aws_launch_template" "catalogue" {
 }
 
 
-resource "aws_autoscaling_group" "catalogue" {
+resource "aws_autoscaling_group" "catalogue" { #likes HR
+/* Desired capacity represents the current target instance count that the ASG actively maintains. When you set it during creation, it tells AWS how many instances to launch immediately. This value changes dynamically as scaling policies respond to load—increasing during traffic spikes and decreasing when demand drops.​
+
+Minimum capacity acts as a safety floor that prevents the ASG from scaling below a certain threshold. Even if scaling policies attempt to reduce capacity further, the ASG will refuse to scale down beyond this minimum. If instances fail and the count drops below minimum, AWS automatically attempts to launch replacements. */
   name                      = "${local.common_name_suffix}-catalogue"
   max_size                  = 10
   min_size                  = 1
@@ -186,6 +189,18 @@ resource "aws_lb_listener_rule" "catalogue" {
     host_header {
       values = ["catalogue.backend-alb-dev.devaws.shop"]
     }
+  }
+}
+
+resource "terraform_data" "catalogue-local" { #if instance id replaced it can be triggered
+  triggers_replace =  [
+      aws_instance.catalogue.id
+  ] 
+
+  depends_on = [ aws_autoscaling_policy.catalogue ]
+
+  provisioner "local-exec" {
+    command = "aws ec2 terminate-instances --instance-ids ${aws.instance.catalogue.id}"
   }
 }
 
