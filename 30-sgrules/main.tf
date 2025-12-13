@@ -98,6 +98,15 @@ resource "aws_security_group_rule" "payment-bastion" {
   to_port           = 22
 }
 
+resource "aws_security_group_rule" "frontend-bastion" {
+  type              = "ingress"
+  security_group_id = local.frontend_sg_id #mongodb traffice receives from bastion
+  source_security_group_id = local.bastion_sg_id #bastion host traffice sends to mongodb
+  from_port         = 22
+  protocol       = "tcp"
+  to_port           = 22
+}
+
 
 #mongodb accepting connections from catalogue and redis
 resource "aws_security_group_rule" "mongodb-catalogue" {
